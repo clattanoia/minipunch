@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import axios from 'axios'
+import axios from './util/api'
 
 class App extends Component {
   constructor(props) {
@@ -11,9 +11,12 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const res = await axios.get('/api/getTitle')
+      const res = await axios({
+        url: '/getTitle',
+        method: 'get'
+      })
       this.setState({
-        title: res.data.title
+        title: res.title
       })
     } catch (error) {
       console.error(error)
