@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
-import axios from './util/api'
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.scss';
+import axios from './util/api';
 
 class App extends Component {
   constructor(props) {
-    super(props)
-    this.state = { title: '' }
+    super(props);
+    this.state = { title: '' };
   }
 
   async componentDidMount() {
@@ -14,12 +14,12 @@ class App extends Component {
       const res = await axios({
         url: '/getTitle',
         method: 'get'
-      })
+      });
       this.setState({
         title: res.title
-      })
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
@@ -34,8 +34,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
