@@ -12,7 +12,7 @@ export default function $axios(options) {
 
     // request 拦截器
     instance.interceptors.request.use(
-      config => {
+      (config) => {
         // Tip: 1
         // 请求开始的时候可以结合 redux 开启全屏的 loading 动画
 
@@ -35,20 +35,15 @@ export default function $axios(options) {
         }
         return config
       },
-      error => {
+      (error) => {
         // 请求错误时做些事(接口错误、超时等)
         // Tip: 4
         // 关闭loadding
         console.log('request:', error)
 
         //  1.判断请求超时
-        if (
-          error.code === 'ECONNABORTED' &&
-          error.message.indexOf('timeout') !== -1
-        ) {
-          console.log(
-            '根据你设置的timeout/真的请求超时 判断请求现在超时了，你可以在这里加入超时的处理方案'
-          )
+        if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
+          console.log('根据你设置的timeout/真的请求超时 判断请求现在超时了，你可以在这里加入超时的处理方案')
           // return service.request(originalRequest);//例如再重复请求一次
         }
         //  2.需要重定向到错误页面
@@ -67,7 +62,7 @@ export default function $axios(options) {
 
     // response 拦截器
     instance.interceptors.response.use(
-      response => {
+      (response) => {
         let data
         // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
         if (response.data === undefined) {
@@ -90,7 +85,7 @@ export default function $axios(options) {
         // throw err
         return data
       },
-      err => {
+      (err) => {
         if (err && err.response) {
           switch (err.response.status) {
             case 400:
@@ -149,11 +144,11 @@ export default function $axios(options) {
 
     //请求处理
     instance(options)
-      .then(res => {
+      .then((res) => {
         resolve(res)
         return false
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error)
       })
   })
