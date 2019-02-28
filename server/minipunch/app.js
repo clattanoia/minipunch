@@ -7,8 +7,26 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+const { ApolloServer, gql } = require('apollo-server-koa')
+
 const index = require('./routes/index')
 const users = require('./routes/users')
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`
+
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!'
+  }
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
+
+server.applyMiddleware({ app })
 
 // error handler
 onerror(app)
