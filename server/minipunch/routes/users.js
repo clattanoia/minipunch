@@ -1,13 +1,9 @@
 const router = require('koa-router')()
 
+import { saveUser, fetchUser } from '../controllers/user'
+
 router.prefix('/users')
 
-router.get('/', function (ctx, next) {
-  ctx.body = 'this is a users response!'
-})
-
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
+router.post('/saveUser', saveUser).get('/user', fetchUser)
 
 module.exports = router

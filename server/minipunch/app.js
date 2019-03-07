@@ -1,4 +1,3 @@
-require('babel-register')
 const Koa = require('koa')
 const app = new Koa()
 const views = require('koa-views')
@@ -7,22 +6,15 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const { ApolloServer, gql } = require('apollo-server-koa')
+const { ApolloServer } = require('apollo-server-koa')
+
+require('./mongodb')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  }
-}
+import typeDefs from './graphql/typeDefs'
+import resolvers from './graphql/resolvers'
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
