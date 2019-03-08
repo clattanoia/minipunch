@@ -1,8 +1,6 @@
 import mongoose from 'mongoose'
 import config from '../config'
 
-require('./schema/user')
-
 const database = () => {
   mongoose.set('debug', true)
 

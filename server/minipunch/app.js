@@ -11,7 +11,7 @@ const { ApolloServer } = require('apollo-server-koa')
 require('./mongodb')
 
 const index = require('./routes/index')
-const users = require('./routes/users')
+// const users = require('./routes/users')
 
 import typeDefs from './graphql/typeDefs'
 import resolvers from './graphql/resolvers'
@@ -49,7 +49,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+// app.use(users.routes(), users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -2,20 +2,20 @@ import { gql } from 'apollo-server-koa'
 
 const typeDefs = gql`
   type Query {
-    hello: String
     users: [User!]!
     user(id: ID!): User!
   }
+
   type User {
     id: ID!
     name: String!
-    email: String!
     age: Int
+    sex: String!
   }
 
   type Mutation {
-    createUser(id: ID!, name: String!, email: String!, age: Int): User!
-    updateUser(id: ID!, name: String, email: String, age: Int): User!
+    createUser(id: ID!, name: String!, sex: String!, age: Int): User!
+    updateUser(id: ID!, name: String, sex: String, age: Int): User!
     deleteUser(id: ID!): User!
   }
 
@@ -23,7 +23,7 @@ const typeDefs = gql`
     users {
       id
       name
-      email
+      sex
       age
     }
   }
