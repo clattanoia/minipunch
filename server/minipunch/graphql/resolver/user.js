@@ -6,7 +6,7 @@ import {
   deleteUser
 } from '../../controllers/user'
 
-const resolvers = {
+const resolver = {
   Query: {
     user: (parent, { id }, context, info) => getUserById(id),
     users: (parent, args, context, info) => getUsers()
@@ -26,4 +26,4 @@ const resolvers = {
   }
 }
 
-export default resolvers
+module.exports = resolver

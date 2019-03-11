@@ -6,15 +6,15 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const { ApolloServer } = require('apollo-server-koa')
+import { ApolloServer } from 'apollo-server-koa'
 
-require('./mongodb')
+import './mongodb'
 
 const index = require('./routes/index')
 // const users = require('./routes/users')
 
-import typeDefs from './graphql/typeDefs'
-import resolvers from './graphql/resolvers'
+import typeDefs from './graphql/schema'
+import resolvers from './graphql/resolver'
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
