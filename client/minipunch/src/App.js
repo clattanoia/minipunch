@@ -43,23 +43,23 @@ class App extends Component {
               if (loading) return 'Loading...'
               if (error) return `Error! ${error.message}`
               return (
-                <Mutation mutation={UPDATE_USER} variables={updateUser}>
-                  {(mutate, { loading, error }) => {
-                    if (loading) return 'Loading...'
-                    if (error) return `Error! ${error.message}`
-                    return (
-                      <>
+                <>
+                  <h1 className="App-title">来自数据库：{user.name}</h1>
+                  <Mutation mutation={UPDATE_USER} variables={updateUser}>
+                    {(mutate, { loading, error }) => {
+                      if (loading) return 'Loading...'
+                      if (error) return `Error! ${error.message}`
+                      return (
                         <Input
                           placeholder="输入姓名"
                           value={this.state.name}
                           onChange={(e) => this.onChange(e.target.value)}
                           onPressEnter={() => this.onPressEnter(mutate, refetch)}
                         />
-                        <h1 className="App-title">来自数据库：{user.name}</h1>
-                      </>
-                    )
-                  }}
-                </Mutation>
+                      )
+                    }}
+                  </Mutation>
+                </>
               )
             }}
           </Query>
