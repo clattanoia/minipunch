@@ -10,11 +10,7 @@ const UserSchema = new Schema({
 })
 
 UserSchema.pre('save', function(next) {
-  // if (this.isNew) {
-  //   this.meta.createdAt = this.meta.updatedAt = Date.now()
-  // } else {
-  //   this.meta.updatedAt = Date.now()
-  // }
+  // pre_save
 
   next()
 })

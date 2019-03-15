@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input } from 'antd'
+import { Input, InputNumber, Button } from 'antd'
 import { Query, Mutation } from 'react-apollo'
 
 import { GET_USER } from './graphql/Query/user'
@@ -7,34 +7,74 @@ import { UPDATE_USER } from './graphql/Mutation/user'
 
 import './App.scss'
 
-class App extends Component {
+class FormComponent extends Component {
   constructor(props) {
     super(props)
-    this.state = { id: '5c812e8b386ad706fd6fc19f', name: '' }
+    this.state = { name: '', age: '', sex: '' }
   }
 
-  onChange = (name) => {
-    this.setState({ name })
+  onChange = (value, type) => {
+    this.setState({ [type]: value })
   }
 
-  onPressEnter = async (mutate, refetch) => {
+  onClick = async (mutate, refetch) => {
     try {
       await mutate()
       await refetch()
-      this.setState({ name: '' })
+      this.setState({ name: '', age: '', sex: '' })
     } catch (e) {
       console.error(e)
     }
   }
 
   render() {
-    const { id, name } = this.state
-    const updateUser = {
-      id,
-      name,
-      age: 18,
-      sex: '女'
-    }
+    const { name, age, sex } = this.state
+    const { id, refetch } = this.props
+    return (
+      <Mutation mutation={UPDATE_USER} variables={{ id, name, age, sex }}>
+        {(mutate, { loading, error }) => {
+          if (loading) return 'Loading...'
+          if (error) return `Error! ${error.message}`
+          return (
+            <>
+              <Input
+                className="App-input"
+                placeholder="输入姓名"
+                value={this.state.name}
+                onChange={(e) => this.onChange(e.target.value, 'name')}
+              />
+              <InputNumber
+                className="App-input"
+                placeholder="输入年龄"
+                min={0}
+                max={100}
+                value={this.state.age}
+                onChange={(value) => this.onChange(value, 'age')}
+              />
+              <Input
+                className="App-input"
+                placeholder="输入性别"
+                value={this.state.sex}
+                onChange={(e) => this.onChange(e.target.value, 'sex')}
+              />
+              <Button type="primary" onClick={() => this.onClick(mutate, refetch)}>
+                修改
+              </Button>
+            </>
+          )
+        }}
+      </Mutation>
+    )
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { id: '5c812e8b386ad706fd6fc19f' }
+  }
+
+  render() {
     return (
       <div className="App">
         <header className="App-header">
@@ -44,29 +84,15 @@ class App extends Component {
               if (error) return `Error! ${error.message}`
               return (
                 <>
-                  <h1 className="App-title">来自数据库：{user.name}</h1>
-                  <Mutation mutation={UPDATE_USER} variables={updateUser}>
-                    {(mutate, { loading, error }) => {
-                      if (loading) return 'Loading...'
-                      if (error) return `Error! ${error.message}`
-                      return (
-                        <Input
-                          placeholder="输入姓名"
-                          value={this.state.name}
-                          onChange={(e) => this.onChange(e.target.value)}
-                          onPressEnter={() => this.onPressEnter(mutate, refetch)}
-                        />
-                      )
-                    }}
-                  </Mutation>
+                  <h1 className="App-title">
+                    from mongodb: <span>{user.name}</span>
+                  </h1>
+                  <FormComponent id={this.state.id} refetch={refetch} />
                 </>
               )
             }}
           </Query>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     )
   }

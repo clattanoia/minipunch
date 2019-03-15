@@ -34,10 +34,10 @@ export const insertUser = async user => {
   return saveUser
 }
 
-export const updateUser = async ({ id, name, email, age }) => {
+export const updateUser = async ({ id, name, age, sex }) => {
   let newUser
   try {
-    newUser = await User.findOneAndUpdate({ _id: id }, { name, email, age })
+    newUser = await User.findOneAndUpdate({ _id: id }, { name, age, sex })
   } catch (e) {
     newUser = null
     console.error(e)
