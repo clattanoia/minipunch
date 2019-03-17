@@ -39,13 +39,13 @@ class FormComponent extends Component {
             <>
               <Input
                 className="App-input"
-                placeholder="输入姓名"
+                placeholder="please enter name"
                 value={this.state.name}
                 onChange={(e) => this.onChange(e.target.value, 'name')}
               />
               <InputNumber
                 className="App-input"
-                placeholder="输入年龄"
+                placeholder="please enter age"
                 min={0}
                 max={100}
                 value={this.state.age}
@@ -53,7 +53,7 @@ class FormComponent extends Component {
               />
               <Input
                 className="App-input"
-                placeholder="输入性别"
+                placeholder="please enter sex"
                 value={this.state.sex}
                 onChange={(e) => this.onChange(e.target.value, 'sex')}
               />
@@ -85,7 +85,9 @@ class App extends Component {
               return (
                 <>
                   <h1 className="App-title">
-                    from mongodb: <span>{user.name}</span>
+                    from mongodb: <span>{user.name}，</span>
+                    <span>{user.age}，</span>
+                    <span>{user.sex}，</span>
                   </h1>
                   <FormComponent id={this.state.id} refetch={refetch} />
                 </>
