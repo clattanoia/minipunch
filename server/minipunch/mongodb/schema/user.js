@@ -1,12 +1,14 @@
 import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
-const ObjectId = Schema.ObjectId
+// const ObjectId = Schema.ObjectId
 
 const UserSchema = new Schema({
   name: String,
   age: Number,
-  sex: String
+  sex: String,
+  hobby: Array,
+  sponsorId: String
 })
 
 UserSchema.pre('save', function(next) {

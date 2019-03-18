@@ -1,5 +1,5 @@
 type Query {
-  users: [User!]!
+  users(first: Int!): [User!]!
   user(id: ID!): User!
 }
 
@@ -7,12 +7,14 @@ type User {
   id: ID!
   name: String!
   age: Int
-  sex: String!
+  sex: String,
+  hobby: [String]!,
+  sponsorId: ID
 }
 
 type Mutation {
-  createUser(name: String!, age: Int, sex: String!): User!
-  updateUser(id: ID!, name: String, age: Int, sex: String): User!
+  createUser(name: String!, age: Int, sex: String, hobby: [String]!, sponsorId: ID): User!
+  updateUser(id: ID!, name: String, age: Int, sex: String, hobby: [String], sponsorId: ID): User!
   deleteUser(id: ID!): User!
 }
 
@@ -22,5 +24,7 @@ subscription {
     name
     sex
     age
+    hobby
+    sponsorId
   }
 }

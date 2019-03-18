@@ -5,36 +5,90 @@ query($id: ID!) {
     name
     sex
     age
+    hobby
+    sponsorId
   }
 }
 
 #query_all
 query {
-  users {
+  users(first: 2) {
     id
     name
     sex
     age
+    hobby
+    sponsorId
+  }
+}
+
+#query_mixture
+query($id: ID!, $sponsorId: ID!) {
+  user(id: $id) {
+    id
+    name
+    sex
+    age
+    hobby
+    sponsorId
+  }
+  sponsor: user(id: $sponsorId) {
+    id
+    name
+    sex
+    age
+    hobby
+    sponsorId
   }
 }
 
 #insert
-mutation($name: String!, $age: Int, $sex: String!) {
-  createUser(name: $name, age: $age, sex: $sex) {
+mutation(
+  $name: String!
+  $age: Int
+  $sex: String
+  $hobby: [String]!
+  $sponsorId: ID
+) {
+  createUser(
+    name: $name
+    age: $age
+    sex: $sex
+    hobby: $hobby
+    sponsorId: $sponsorId
+  ) {
     id
     name
-    age
     sex
+    age
+    hobby
+    sponsorId
   }
 }
 
 #update
-mutation($id: ID!, $name: String!, $age: Int, $sex: String!) {
-  updateUser(id: $id, name: $name, age: $age, sex: $sex) {
+mutation(
+  $id: ID!
+  $name: String
+  $age: Int
+  $sex: String
+  $hobby: [String]
+  $sponsorId: ID
+) {
+  updateUser(
+    id: $id
+    name: $name
+    age: $age
+    sex: $sex
+    hobby: $hobby
+    sponsorId: $sponsorId
+  ) {
     id
     name
-    age
     sex
+    age
+    hobby
+    sponsorId
   }
 }
 
@@ -43,7 +97,9 @@ mutation($id: ID!) {
   deleteUser(id: $id) {
     id
     name
-    age
     sex
+    age
+    hobby
+    sponsorId
   }
 }

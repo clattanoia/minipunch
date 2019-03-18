@@ -11,10 +11,10 @@ export const getUserById = async id => {
   return user
 }
 
-export const getUsers = async () => {
+export const getUsers = async (first) => {
   let users
   try {
-    users = await User.find({})
+    users = await User.find({}).limit(first)
   } catch (e) {
     users = []
     console.error(e)
@@ -34,10 +34,10 @@ export const insertUser = async user => {
   return saveUser
 }
 
-export const updateUser = async ({ id, name, age, sex }) => {
+export const updateUser = async ({ id, name, age, sex, hobby, sponsorId }) => {
   let newUser
   try {
-    newUser = await User.findOneAndUpdate({ _id: id }, { name, age, sex })
+    newUser = await User.findOneAndUpdate({ _id: id }, { name, age, sex, hobby, sponsorId })
   } catch (e) {
     newUser = null
     console.error(e)

@@ -9,16 +9,16 @@ import {
 const resolver = {
   Query: {
     user: (parent, { id }, context, info) => getUserById(id),
-    users: (parent, args, context, info) => getUsers()
+    users: (parent, { first }, context, info) => getUsers(first)
   },
   Mutation: {
-    createUser: (parent, { name, age, sex }, context, info) => {
-      const newUser = { name, age, sex }
+    createUser: (parent, { name, age, sex, hobby, sponsorId }, context, info) => {
+      const newUser = { name, age, sex, hobby, sponsorId }
 
       return insertUser(newUser)
     },
-    updateUser: (parent, { id, name, age, sex }, context, info) => {
-      let newUser = { id, name, age, sex }
+    updateUser: (parent, { id, name, age, sex, hobby, sponsorId }, context, info) => {
+      let newUser = { id, name, age, sex, hobby, sponsorId }
 
       return updateUser(newUser)
     },
